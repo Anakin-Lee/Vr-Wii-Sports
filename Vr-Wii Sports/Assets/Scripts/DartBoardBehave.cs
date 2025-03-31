@@ -7,6 +7,8 @@ public class DartBoardBehave : MonoBehaviour
     public GameObject hitMarker;
     public Transform dartboardCenter;
 
+    private int[] dartboardNumbers = { 6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10 }; 
+
     private void OnCollisionEnter(Collision hit)
     {
         float radius = GetComponent<Collider>().bounds.extents.x;
@@ -23,7 +25,8 @@ public class DartBoardBehave : MonoBehaviour
 
         Debug.Log("Angle of hit: " + angle);
 
-        //int score = CalculateScore(localHitPoint, dist, angle);
+        int score = CalculateScore(localHitPoint, dist, angle);
+        Debug.Log("Score: " + score);
 
 
 
@@ -35,29 +38,29 @@ public class DartBoardBehave : MonoBehaviour
 
     }
 
-    //private int CalculateScore(Vector3 localHitPoint, float angle)
-    //{
-    //    if (dist <= 1.0f ) //Inner bullseye
-    //    { 
-    //        return 50; 
-    //    }
-    //    if(dist > 1.0f && dist <= 2.0f) //Outer Bullseye
-    //    { 
-    //        return 25;
-    //    }
+    private int CalculateScore(Vector3 localHitPoint, float dist, float angle)
+    {
+        if (dist <= 1.0f) //Inner bullseye
+        {
+            return 50;
+        }
+        if (dist > 1.0f && dist <= 2.0f) //Outer Bullseye
+        {
+            return 25;
+        }
+
+        int section = Mathf.FloorToInt(angle / 18f);
+        int baseScore = dartboardNumbers[section];
 
 
-
-    //    if(dist >= 10.0f && dist <=14.0f) //triple ring
-    //    {
-    //        return basescore * 3;
-    //    }
-    //    if (dist >= 16.0f && dist <= 20.0f) //double ring
-    //    {
-    //        return basescore * 2;
-    //    }
-
- 
-
-    //}
+        if (dist >= 10.0f && dist <= 14.0f) //triple ring
+        {
+            return baseScore * 3;
+        }
+        if (dist >= 16.0f && dist <= 20.0f) //double ring
+        {
+            return baseScore * 2;
+        }
+        return baseScore;
+    }
 }
