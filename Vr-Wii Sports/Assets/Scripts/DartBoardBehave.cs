@@ -12,7 +12,7 @@ public class DartBoardBehave : MonoBehaviour
     private void OnCollisionEnter(Collision hit)
     {
         float radius = GetComponent<Collider>().bounds.extents.x;
-        Vector3 center = new Vector3(0, 0, 0);
+        Vector3 center = transform.InverseTransformPoint(dartboardCenter.position);
         ContactPoint contact = hit.contacts[0]; 
         Vector3 worldHitPoint = contact.point; // world coords
         Vector3 localHitPoint = transform.InverseTransformPoint(worldHitPoint); // local coords
@@ -20,7 +20,7 @@ public class DartBoardBehave : MonoBehaviour
         float dist = Vector3.Distance(center, localHitPoint);
         Debug.Log("This is the distance between center and the last hit spot: " + dist);
 
-        float angle = Mathf.Atan2(localHitPoint.y, localHitPoint.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(-localHitPoint.z, -localHitPoint.x) * Mathf.Rad2Deg;
         if (angle < 0) angle += 360;
 
         Debug.Log("Angle of hit: " + angle);
@@ -40,24 +40,31 @@ public class DartBoardBehave : MonoBehaviour
 
     private int CalculateScore(Vector3 localHitPoint, float dist, float angle)
     {
-        if (dist <= 1.0f) //Inner bullseye
+        float bullseye = 1.0f;
+        float outerBullseye = 2.0f;
+        float tripleRingInner = 8.0f;
+        float tripleRingOuter = 12.0f;
+        float doubleRingInner = 14.0f;
+        float doubleRingOuter = 18.0f;
+
+        if (dist <= bullseye) //Inner bullseye
         {
             return 50;
         }
-        if (dist > 1.0f && dist <= 2.0f) //Outer Bullseye
+        if (dist <= outerBullseye) //Outer Bullseye
         {
             return 25;
         }
 
-        int section = Mathf.FloorToInt(angle / 18f);
+        int section = Mathf.FloorToInt((angle + 9) / 18f) % 20;
         int baseScore = dartboardNumbers[section];
 
 
-        if (dist >= 10.0f && dist <= 14.0f) //triple ring
+        if (dist >= tripleRingInner && dist <= tripleRingOuter) //triple ring
         {
             return baseScore * 3;
         }
-        if (dist >= 16.0f && dist <= 20.0f) //double ring
+        if (dist >= doubleRingInner && dist <= doubleRingOuter) //double ring
         {
             return baseScore * 2;
         }
