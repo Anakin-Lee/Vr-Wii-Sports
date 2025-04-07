@@ -2200,10 +2200,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 202364688}
     m_Modifications:
-    - target: {fileID: 3448426214904589657, guid: c1800acf6366418a9b5f610249000331, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2761784063978902503, guid: a9c5843902145c745b5efa6921e840c7, type: 3}
       propertyPath: m_AttachTransform
       value: 
@@ -2275,6 +2271,10 @@ PrefabInstance:
     - target: {fileID: 2761784063978902507, guid: a9c5843902145c745b5efa6921e840c7, type: 3}
       propertyPath: m_Name
       value: Teleport Interactor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3448426214904589657, guid: c1800acf6366418a9b5f610249000331, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9c5843902145c745b5efa6921e840c7, type: 3}
