@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 241406391468263889}
   - component: {fileID: 8026332898825910209}
   - component: {fileID: 1082223108}
-  - component: {fileID: 150102046085095715}
+  - component: {fileID: 1989917031}
   m_Layer: 0
   m_Name: PingPong_Ball
   m_TagString: GolfBall
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &150102046085095715
+--- !u!114 &1989917031
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +124,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1754532098117871620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c2777bc9057f44d9b623ce1c5257b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 1745442c5a3cdd14fbd29639d5019944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 10
