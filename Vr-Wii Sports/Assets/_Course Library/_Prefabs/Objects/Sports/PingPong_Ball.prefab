@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 241406391468263889}
   - component: {fileID: 8026332898825910209}
   - component: {fileID: 1082223108}
-  - component: {fileID: 1989917031}
+  - component: {fileID: 6999888993465697856}
   m_Layer: 0
   m_Name: PingPong_Ball
   m_TagString: GolfBall
@@ -93,7 +93,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754532098117871620}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 10bde48ef542d6a4fbee12145283824a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -107,15 +107,15 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1754532098117871620}
   serializedVersion: 2
-  m_Mass: 0.05
+  m_Mass: 0.00005
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &1989917031
+  m_CollisionDetection: 2
+--- !u!114 &6999888993465697856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,6 +124,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1754532098117871620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1745442c5a3cdd14fbd29639d5019944, type: 3}
+  m_Script: {fileID: 11500000, guid: b294ca8206c4e9e47b11e83987692b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundDrag: 2
+  airDrag: 0.1
+  stopThreshold: 0.05
+  settleDelay: 2

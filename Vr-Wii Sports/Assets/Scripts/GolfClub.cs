@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class GolfClub : MonoBehaviour
 {
-    public float forceMultiplier = 10000000000000f; // Adjust for sensitivity
+    public float forceMultiplier = 10f;
+    [SerializeField, Range(0f, 1f)] public float launchAngle = 0f;
+
+    private Vector3 lastPosition;
+    private Vector3 calculatedVelocity;
+
+    private void FixedUpdate()
+    {
+        calculatedVelocity = (transform.position - lastPosition) / Time.fixedDeltaTime;
+        lastPosition = transform.position;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collision logged");
-        Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+
         if (!collision.gameObject.CompareTag("GolfBall")) return;
+
+        Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
         if (ballRigidbody == null) return;
 
-        // Calculate the force based on club speed and direction
-        Vector3 clubVelocity = GetComponent<Rigidbody>().velocity;
-        Vector3 forceDirection = collision.contacts[0].normal * -1f; // Reflective force
-
+        Vector3 clubVelocity = calculatedVelocity;
+        Vector3 forceDirection = clubVelocity.normalized + Vector3.up * launchAngle;
         float impactForce = clubVelocity.magnitude * forceMultiplier;
+
+        Debug.Log($"Club velocity: {clubVelocity}, Force Direction: {forceDirection}, Impact Force: {impactForce}");
+
         ballRigidbody.AddForce(forceDirection * impactForce, ForceMode.Impulse);
     }
 }
