@@ -10,6 +10,13 @@ public class GolfClub : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 calculatedVelocity;
 
+    private AudioSource hitSound; // Add this
+
+    private void Start()
+    {
+        hitSound = GetComponent<AudioSource>(); // Get the AudioSource component
+    }
+
     private void FixedUpdate()
     {
         calculatedVelocity = (transform.position - lastPosition) / Time.fixedDeltaTime;
@@ -32,5 +39,8 @@ public class GolfClub : MonoBehaviour
         //Debug.Log($"Club velocity: {clubVelocity}, Force Direction: {forceDirection}, Impact Force: {impactForce}");
 
         ballRigidbody.AddForce(forceDirection * impactForce, ForceMode.Impulse);
+
+        // Play sound
+        if (hitSound != null) hitSound.Play();
     }
 }
