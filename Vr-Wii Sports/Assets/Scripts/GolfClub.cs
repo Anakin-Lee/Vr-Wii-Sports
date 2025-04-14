@@ -18,7 +18,7 @@ public class GolfClub : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision logged");
+        //Debug.Log("Collision logged");
 
         if (!collision.gameObject.CompareTag("GolfBall")) return;
 
@@ -29,7 +29,7 @@ public class GolfClub : MonoBehaviour
         Vector3 forceDirection = clubVelocity.normalized + Vector3.up * launchAngle;
         float impactForce = clubVelocity.magnitude * forceMultiplier;
 
-        Debug.Log($"Club velocity: {clubVelocity}, Force Direction: {forceDirection}, Impact Force: {impactForce}");
+        //Debug.Log($"Club velocity: {clubVelocity}, Force Direction: {forceDirection}, Impact Force: {impactForce}");
 
         ballRigidbody.AddForce(forceDirection * impactForce, ForceMode.Impulse);
     }
