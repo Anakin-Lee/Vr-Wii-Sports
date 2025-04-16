@@ -10,9 +10,13 @@ public class DartBoardBehave : MonoBehaviour
     [SerializeField] DartBoardScriptable _board;
     private int[] dartboardNumbers = { 6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10 };
     [SerializeField] private float _number;
+
+    public AudioSource hitSound; // Add this
+
     private void Start()
     {
         transform.localScale = new Vector3(_board.radius, _board.radius, _board.radius);
+        hitSound = GetComponent<AudioSource>(); // Get the AudioSource component
     }
     private void OnValidate()
     {
@@ -39,6 +43,9 @@ public class DartBoardBehave : MonoBehaviour
         Debug.Log("Score: " + score);
 
         if (hitMarker) Instantiate(hitMarker, worldHitPoint, Quaternion.identity); //Marker prefab placement
+
+        // Play sound
+        if (hitSound != null) hitSound.Play();
     }
 
     private int CalculateScore(Vector3 localHitPoint, float distance, float angle)
