@@ -5,11 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(MeshCollider))]
 public class DartBoardBehave : MonoBehaviour
 {
+    public ScoreBoard scoreBoard;
+    public ScoreBoard stroke;
     public GameObject hitMarker;
     public Transform dartboardCenter;
     [SerializeField] DartBoardScriptable _board;
     private int[] dartboardNumbers = { 6, 13, 4, 18, 1, 20, 5, 12, 9, 14, 11, 8, 16, 7, 19, 3, 17, 2, 15, 10 };
     [SerializeField] private float _number;
+    [SerializeField] private bool _debugEnabled;
 
     public AudioSource hitSound; // Add this
 
@@ -27,27 +30,27 @@ public class DartBoardBehave : MonoBehaviour
     {
         float radius = GetComponent<Collider>().bounds.extents.x;
         Vector3 center = transform.position;
-        ContactPoint contact = hit.contacts[0]; 
-        Vector3 worldHitPoint = contact.point; // world coords
+        Vector3 worldHitPoint = hit.contacts[0].point; // world coords
         Vector3 localHitPoint = transform.InverseTransformPoint(worldHitPoint); // local coords
 
         float distance = Vector3.Distance(center, localHitPoint) / radius;
-        Debug.Log("This is the radius" + distance);
-        Debug.Log("This is the distance between center and the last hit spot: " + distance);
-
         float angle = Mathf.Atan2(-localHitPoint.z, -localHitPoint.x) * Mathf.Rad2Deg;
         if (angle < 0) angle += 360;
-        Debug.Log("Angle of hit: " + angle);
 
         int score = CalculateScore(localHitPoint, distance, angle);
-        Debug.Log("Score: " + score);
-
+        if (hitSound != null) hitSound.Play(); // Play sound
         if (hitMarker) Instantiate(hitMarker, worldHitPoint, Quaternion.identity); //Marker prefab placement
-
-        // Play sound
-        if (hitSound != null) hitSound.Play();
+        if (scoreBoard != null) scoreBoard.AddScore(score);
+        if (stroke != null) stroke.strokeCounter();
+        if (_debugEnabled) CollisionDebugPrintToConsole(distance, angle, score);
     }
-
+    private void CollisionDebugPrintToConsole(float distance, float angle, float score)
+    {
+        Debug.Log("This is the radius" + distance);
+        Debug.Log("This is the distance between center and the last hit spot: " + distance);
+        Debug.Log("Angle of hit: " + angle);
+        Debug.Log("Score: " + score);
+    }
     private int CalculateScore(Vector3 localHitPoint, float distance, float angle)
     {
         if (distance <= _board.bullseye) //Inner bullseye
