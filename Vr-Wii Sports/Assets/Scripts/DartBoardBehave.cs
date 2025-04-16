@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshCollider))]
 public class DartBoardBehave : MonoBehaviour
 {
-    public ScoreBoard scoreBoard;
-    public ScoreBoard stroke;
+    [SerializeField] private ScoreBoard scoreBoard;
+    [SerializeField] private ScoreBoard stroke;
     public GameObject hitMarker;
     public Transform dartboardCenter;
     [SerializeField] DartBoardScriptable _board;
