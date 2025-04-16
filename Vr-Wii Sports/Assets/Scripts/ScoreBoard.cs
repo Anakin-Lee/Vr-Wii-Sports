@@ -14,6 +14,7 @@ public class ScoreBoard : MonoBehaviour
     void Start()
     {
         UpdateScoreUI();
+        UpdateStrokesUI();
     }
 
     public void AddScore(int amount)
