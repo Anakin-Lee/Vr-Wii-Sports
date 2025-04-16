@@ -21,10 +21,10 @@ public class GolfBall : MonoBehaviour
     private void FixedUpdate()
     {
         // Adjust drag based on grounded state
-        rb.drag = isGrounded ? groundDrag : airDrag;
+        //rb.drag = isGrounded ? groundDrag : airDrag;
 
         // If the ball is barely moving, start checking for settle
-        if (rb.velocity.magnitude < stopThreshold && isGrounded)
+        if (rb.velocity.magnitude < stopThreshold)
         {
             StartCoroutine(SettleBall());
         }
@@ -41,20 +41,20 @@ public class GolfBall : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Ground check based on tag or layer
-        if (collision.gameObject.CompareTag("Ground") || collision.contacts[0].normal.y > 0.5f)
-        {
-            isGrounded = true;
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    // Ground check based on tag or layer
+    //    if (collision.gameObject.CompareTag("Ground") || collision.contacts[0].normal.y > 0.5f)
+    //    {
+    //        isGrounded = true;
+    //    }
+    //}
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isGrounded = false;
+    //    }
+    //}
 }
