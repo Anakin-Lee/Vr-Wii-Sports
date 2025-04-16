@@ -10,11 +10,11 @@ public class GolfClub : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 calculatedVelocity;
 
-    private AudioSource hitSound; // Add this
+    private AudioSource hitSound;
 
     private void Start()
     {
-        hitSound = GetComponent<AudioSource>(); // Get the AudioSource component
+        hitSound = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -25,7 +25,7 @@ public class GolfClub : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Collision logged");
+        Debug.Log("Collision detected with: " + collision.gameObject.name);
 
         if (!collision.gameObject.CompareTag("GolfBall")) return;
 
@@ -36,11 +36,23 @@ public class GolfClub : MonoBehaviour
         Vector3 forceDirection = clubVelocity.normalized + Vector3.up * launchAngle;
         float impactForce = clubVelocity.magnitude * forceMultiplier;
 
-        //Debug.Log($"Club velocity: {clubVelocity}, Force Direction: {forceDirection}, Impact Force: {impactForce}");
+        Debug.Log($"Club velocity: {clubVelocity}, Force direction: {forceDirection}, Impact force: {impactForce}");
 
         ballRigidbody.AddForce(forceDirection * impactForce, ForceMode.Impulse);
 
         // Play sound
         if (hitSound != null) hitSound.Play();
+
+        // Start reset timer on the ball
+        GolfBallReset resetScript = collision.gameObject.GetComponent<GolfBallReset>();
+        if (resetScript != null)
+        {
+            Debug.Log("Starting ball reset timer...");
+            resetScript.StartResetTimer();
+        }
+        else
+        {
+            Debug.LogWarning("GolfBallReset component not found on the golf ball.");
+        }
     }
 }
