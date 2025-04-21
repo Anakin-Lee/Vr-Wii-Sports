@@ -58,7 +58,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3402060454488584965}
-  m_LocalRotation: {x: 0.0006544835, y: 0.7071066, z: -0.7071064, w: 0.0006544977}
+  m_LocalRotation: {x: 0.0006541628, y: 0.7071065, z: -0.7071065, w: 0.0006541628}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
@@ -143,7 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d364e9a8374f64ab629f0cd3b103ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreBoard: {fileID: 0}
+  stroke: {fileID: 0}
   hitMarker: {fileID: 0}
   dartboardCenter: {fileID: 2591788758453949563}
   _board: {fileID: 11400000, guid: 6340beeba4fad42488211455bd764b97, type: 2}
   _number: -7.85
+  _debugEnabled: 1
+  hitSound: {fileID: 0}
